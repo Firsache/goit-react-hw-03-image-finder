@@ -11,23 +11,24 @@ export class ModalWindow extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', evt => {
-      if (evt.code === 'Escape') {
-        console.log('кликнули на esc');
-        this.props.onClose();
-      }
-    });
+    window.addEventListener('keydown', this.handleEscapeClick);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleEscapeClick);
   }
 
   handleBackdropClick = evt => {
-    //   console.log('кликнули на меня');
-    if (evt.target) {
+    if (evt.target === evt.currentTarget) {
       this.props.onClose();
     }
   };
+
   handleEscapeClick = evt => {
-    console.log(evt);
-    //
+    if (evt.code === 'Escape') {
+      console.log('кликнули на esc');
+      this.props.onClose();
+    }
   };
 
   render() {
