@@ -76,9 +76,9 @@ export class Gallery extends Component {
       <App>
         <SearchBar onSubmit={this.gerSearchedValue} />
         {isLoading && <Loading />}
-        <GalleryList images={images} />
+        <GalleryList images={images} toggleModal={this.toggleModal} />
 
-        {showModal && <ModalWindow onClick={this.toggleModal} />}
+        {showModal && <ModalWindow toggleModal={this.toggleModal} />}
 
         {images.length > 0 && page * 12 < total && (
           <Button handlePageChange={this.handlePageChange} />
