@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Header, Form, Input, Btn, Icon } from './Searchbar.styled';
-// import { BiSearch } from 'react-icons/bi';
 
 export class SearchBar extends Component {
   state = {
@@ -8,14 +7,16 @@ export class SearchBar extends Component {
   };
 
   handleSearch = evt => {
-    if (evt.target.value !== this.state.searchedValue) {
-      this.setState({ searchedValue: evt.target.value });
-    }
+    this.setState({ searchedValue: evt.target.value });
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.props.onSubmit(this.state.searchedValue.trim().toLowerCase());
+
+    const query = this.state.searchedValue.trim().toLowerCase();
+    if (!query) return;
+
+    this.props.onSubmit(query);
     this.setState({ searchedValue: '' });
   };
 
