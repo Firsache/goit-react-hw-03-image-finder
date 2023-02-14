@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { SearchBar } from 'components/index';
+import { SearchBar, GalleryList } from 'components/index';
 import { fetchImages } from 'components/services/app';
 
 export class App extends Component {
@@ -18,6 +18,11 @@ export class App extends Component {
   };
 
   render() {
-    return <SearchBar onSubmit={this.gerSearchedValue} />;
+    return (
+      <>
+        <SearchBar onSubmit={this.gerSearchedValue} />
+        <GalleryList />;
+      </>
+    );
   }
 }
