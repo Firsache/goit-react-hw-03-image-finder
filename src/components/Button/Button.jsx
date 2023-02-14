@@ -1,5 +1,5 @@
 import { Loadmore } from './Button.styled';
 
-export function Button() {
-  return <Loadmore>Load more</Loadmore>;
+export function Button({ handlePageChange }) {
+  return <Loadmore onClick={() => handlePageChange()}>Load more</Loadmore>;
 }
