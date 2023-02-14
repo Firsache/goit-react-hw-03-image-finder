@@ -4,15 +4,33 @@ import { fetchImages } from 'components/services/app';
 
 export class App extends Component {
   state = {
-    searchedValue: '',
+    searchedValue: 'dogs',
+    images: [],
+    page: 1,
+    totalImages: 0,
+    isLoading: false,
   };
+
   componentDidMount() {
-    fetchImages();
+    this.fetchImages();
   }
-  // fetchImages = (query, page) {
 
-  // }
-
+  fetchImages = async () => {
+    const { searchedValue, page } = this.state;
+    try {
+      const data = await fetchImages(searchedValue, page);
+      const hits = data.hits;
+      console.log(hits);
+      this.setState({ images: hits });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  componentDidUpdate(_, prevState) {
+    if (prevState.searchedValue !== this.state.searchedValue) {
+      this.fetchImages();
+    }
+  }
   gerSearchedValue = searchedValue => {
     this.setState({ searchedValue });
   };
@@ -21,7 +39,7 @@ export class App extends Component {
     return (
       <>
         <SearchBar onSubmit={this.gerSearchedValue} />
-        <GalleryList />;
+        <GalleryList images={this.state.images} />;
       </>
     );
   }
