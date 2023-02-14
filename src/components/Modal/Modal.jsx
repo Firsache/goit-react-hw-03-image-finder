@@ -10,11 +10,21 @@ export class ModalWindow extends Component {
     isBackdrop: false,
   };
 
+  handleBackdropClick = evt => {
+    //   console.log('кликнули на меня');
+    if (evt.target) {
+      this.props.toggleModal();
+    }
+  };
+
   render() {
     return createPortal(
-      <Backdrop class="overlay">
-        <Modal class="modal">
-          <img src="src" alt="alt" />
+      <Backdrop onClick={this.handleBackdropClick}>
+        <Modal>
+          <img
+            src="https://i.guim.co.uk/img/media/87929f76cb1cbd05350d5a7b8fe759857a2e7e78/388_698_3299_1979/master/3299.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=875b2f73d7fb4832f0b1720a0851af51"
+            alt="alt"
+          />
         </Modal>
       </Backdrop>,
       modalRoot
