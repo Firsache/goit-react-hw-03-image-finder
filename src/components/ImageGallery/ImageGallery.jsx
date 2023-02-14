@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import { GalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { List } from './ImageGallery.styled';
 
-export function GalleryList({ gallery }) {
+export function GalleryList({ images }) {
   return (
     <List>
-      {gallery.map(({ id, item, alt }) => (
-        <GalleryItem key={id} item={item} alt={alt} />
+      {images.map(({ id, webformatURL, largeImageURL }) => (
+        <GalleryItem key={id} src={webformatURL} alt={largeImageURL} />
       ))}
     </List>
   );
 }
 GalleryList.propTypes = {
-  gallery: PropTypes.array,
+  images: PropTypes.array,
 };
