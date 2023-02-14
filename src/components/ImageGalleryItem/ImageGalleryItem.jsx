@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { Item, Img } from './ImageGalleryItem.styled';
 
-export function GalleryItem({ item, alt }) {
+export function GalleryItem({ src, alt }) {
   return (
     <Item>
-      <Img src={item} alt={alt} />
+      <Img src={src} alt={alt} />
     </Item>
   );
 }
 
 GalleryItem.propTypes = {
-  item: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
 };
