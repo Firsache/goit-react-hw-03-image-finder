@@ -78,7 +78,7 @@ export class Gallery extends Component {
         {isLoading && <Loading />}
         <GalleryList images={images} toggleModal={this.toggleModal} />
 
-        {showModal && <ModalWindow toggleModal={this.toggleModal} />}
+        {showModal && <ModalWindow onClose={this.toggleModal} />}
 
         {images.length > 0 && page * 12 < total && (
           <Button handlePageChange={this.handlePageChange} />
