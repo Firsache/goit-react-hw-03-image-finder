@@ -30,7 +30,7 @@ export class Gallery extends Component {
   }
 
   gerSearchedValue = searchedValue => {
-    this.setState({ searchedValue });
+    this.setState({ searchedValue, page: 1 });
     this.pageUp();
   };
 
