@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   SearchBar,
   Loading,
@@ -39,6 +40,23 @@ export class Gallery extends Component {
       const data = await fetchImages(searchedValue, page);
       const hits = data.hits;
       const total = data.total;
+
+      if (total === 0) {
+        toast.error(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+        return;
+      }
+
+      if (total > 0) {
+        toast.success(`Horray! We found ${total} images.`);
+      }
+      if (page * 12 < total) {
+        toast.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
+
       this.setState({ images: hits, total });
     } catch (error) {
       console.log(error);
@@ -79,6 +97,7 @@ export class Gallery extends Component {
         {images.length > 0 && page * 12 < total && (
           <Button handlePageChange={this.handlePageChange} />
         )}
+        <ToastContainer autoClose={3000} newestOnTop theme="dark" />
       </App>
     );
   }
