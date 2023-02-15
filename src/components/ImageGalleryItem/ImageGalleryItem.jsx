@@ -17,4 +17,6 @@ export function GalleryItem({ src, alt, toggleModal, largeImageURL }) {
 GalleryItem.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
