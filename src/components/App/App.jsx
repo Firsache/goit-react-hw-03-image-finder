@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   SearchBar,
   Loading,
@@ -48,10 +50,13 @@ export class Gallery extends Component {
         return;
       }
 
-      if (total > 0) {
+      if (total > 0 && page === 1) {
         toast.success(`Horray! We found ${total} images.`);
       }
-      if (page * 12 < total) {
+      if (page > 1 && page * 12 < total) {
+        toast.success('Horray! Here are 12 more images.');
+      }
+      if (total - page * 12 <= 0) {
         toast.info(
           "We're sorry, but you've reached the end of search results."
         );
