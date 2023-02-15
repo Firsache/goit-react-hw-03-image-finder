@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
 import { Item, Img } from './ImageGalleryItem.styled';
 
-export function GalleryItem({ src, alt, toggleModal }) {
+export function GalleryItem({ src, alt, toggleModal, largeImageURL }) {
   return (
     <Item>
-      <Img src={src} alt={alt} onClick={() => toggleModal()} />
+      <Img
+        src={src}
+        alt={alt}
+        onClick={() => toggleModal({ alt, largeImageURL })}
+        largeImageURL={largeImageURL}
+      />
     </Item>
   );
 }
