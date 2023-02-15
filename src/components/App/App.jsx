@@ -51,11 +51,11 @@ export class Gallery extends Component {
       if (total > 0) {
         toast.success(`Horray! We found ${total} images.`);
       }
-      if (page * 12 < total) {
-        toast.info(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
+//       if (page * 12 < total) {
+//         toast.info(
+//           "We're sorry, but you've reached the end of search results."
+//         );
+//       }
 
       this.setState({ images: hits, total });
     } catch (error) {
