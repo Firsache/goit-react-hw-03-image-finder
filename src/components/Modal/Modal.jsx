@@ -7,12 +7,10 @@ const modalRoot = document.querySelector('#modal-root');
 
 export class ModalWindow extends Component {
   componentDidMount() {
-    // document.body.style = 'overflow-y: hidden';
     window.addEventListener('keydown', this.handleEscapeClick);
   }
 
   componentWillUnmount() {
-    // document.body.style = 'overflow-y: auto';
     window.removeEventListener('keydown', this.handleEscapeClick);
   }
 
