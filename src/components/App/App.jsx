@@ -16,12 +16,8 @@ export class Gallery extends Component {
     page: 1,
     total: 0,
     isLoading: false,
-    showModal: false,
+    imageInfo: null,
   };
-
-  // componentDidMount() {
-  //   this.fetchImages();
-  // }
 
   componentDidUpdate(_, prevState) {
     const { searchedValue, page } = this.state;
@@ -56,10 +52,8 @@ export class Gallery extends Component {
     this.pageUp();
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+  getImageInfo = (imageInfo = null) => {
+    this.setState({ imageInfo });
   };
 
   pageUp = () => {
@@ -71,14 +65,16 @@ export class Gallery extends Component {
   };
 
   render() {
-    const { isLoading, images, showModal, total, page } = this.state;
+    const { isLoading, images, total, page, imageInfo } = this.state;
     return (
       <App>
         <SearchBar onSubmit={this.gerSearchedValue} />
         {isLoading && <Loading />}
-        <GalleryList images={images} toggleModal={this.toggleModal} />
+        <GalleryList images={images} toggleModal={this.getImageInfo} />
 
-        {showModal && <ModalWindow onClose={this.toggleModal} />}
+        {imageInfo && (
+          <ModalWindow onClose={this.getImageInfo} imageInfo={imageInfo} />
+        )}
 
         {images.length > 0 && page * 12 < total && (
           <Button handlePageChange={this.handlePageChange} />
