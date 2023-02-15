@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { Backdrop, Modal } from './Modal.styled';
 
@@ -6,12 +7,12 @@ const modalRoot = document.querySelector('#modal-root');
 
 export class ModalWindow extends Component {
   componentDidMount() {
-    document.body.style = 'overflow-y: hidden';
+    // document.body.style = 'overflow-y: hidden';
     window.addEventListener('keydown', this.handleEscapeClick);
   }
 
   componentWillUnmount() {
-    document.body.style = 'overflow-y: auto';
+    // document.body.style = 'overflow-y: auto';
     window.removeEventListener('keydown', this.handleEscapeClick);
   }
 
@@ -23,7 +24,6 @@ export class ModalWindow extends Component {
 
   handleEscapeClick = evt => {
     if (evt.code === 'Escape') {
-      console.log('кликнули на esc');
       this.props.onClose();
     }
   };
@@ -41,3 +41,11 @@ export class ModalWindow extends Component {
     );
   }
 }
+
+ModalWindow.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  imageInfo: PropTypes.shape({
+    largeImageURL: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+  }).isRequired,
+};
