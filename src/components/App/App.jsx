@@ -9,7 +9,7 @@ import {
   ModalWindow,
   Button,
 } from 'components/index';
-import { fetchImages } from 'components/services/app';
+import { fetchImages } from 'services/app';
 import { App } from './App.styled';
 
 export class Gallery extends Component {
@@ -30,18 +30,16 @@ export class Gallery extends Component {
   }
 
   gerSearchedValue = searchedValue => {
-    this.setState({ searchedValue, page: 1 });
+    this.setState({ searchedValue, page: 1, images: [], total: 0 });
     this.pageUp();
   };
 
   fetchImages = async () => {
-    const { searchedValue, page } = this.state;
+    const { searchedValue, page, images } = this.state;
     try {
       this.setState({ isLoading: true });
 
-      const data = await fetchImages(searchedValue, page);
-      const hits = data.hits;
-      const total = data.total;
+      const { hits, total } = await fetchImages(searchedValue, page);
 
       if (total === 0) {
         toast.error(
@@ -53,16 +51,17 @@ export class Gallery extends Component {
       if (total > 0 && page === 1) {
         toast.success(`Horray! We found ${total} images.`);
       }
-      if (page > 1 && page * 12 < total) {
-        toast.success('Horray! Here are 12 more images.');
-      }
-      if (total - page * 12 <= 0) {
+
+      if (total > 0 && total === images.length) {
         toast.info(
           "We're sorry, but you've reached the end of search results."
         );
       }
 
-      this.setState({ images: hits, total });
+      this.setState(prevState => ({
+        images: [...prevState.images, ...hits],
+        total,
+      }));
     } catch (error) {
       console.log(error);
     } finally {
@@ -72,7 +71,6 @@ export class Gallery extends Component {
 
   handlePageChange = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
-    this.pageUp();
   };
 
   getImageInfo = (imageInfo = null) => {
@@ -88,7 +86,7 @@ export class Gallery extends Component {
   };
 
   render() {
-    const { isLoading, images, total, page, imageInfo } = this.state;
+    const { isLoading, images, total, imageInfo } = this.state;
     return (
       <App>
         <SearchBar onSubmit={this.gerSearchedValue} />
@@ -99,7 +97,7 @@ export class Gallery extends Component {
           <ModalWindow onClose={this.getImageInfo} imageInfo={imageInfo} />
         )}
 
-        {images.length > 0 && page * 12 < total && (
+        {images.length > 0 && images.length < total && (
           <Button handlePageChange={this.handlePageChange} />
         )}
         <ToastContainer autoClose={3000} newestOnTop theme="dark" />
