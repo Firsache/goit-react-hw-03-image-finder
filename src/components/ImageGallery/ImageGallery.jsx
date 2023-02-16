@@ -3,6 +3,7 @@ import { GalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { List } from './ImageGallery.styled';
 
 export function GalleryList({ images, toggleModal }) {
+  console.log(images);
   return (
     <List>
       {images.map(({ id, tags, webformatURL, largeImageURL }) => (
